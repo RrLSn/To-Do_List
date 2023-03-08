@@ -2,16 +2,34 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [input, setInput] = useState("")
+  const [toDoList, setToDoList] = useState([])
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setToDoList(toDoList.concat(input))
+    setInput('')
+  }
 
   return (
-    <div className="App bg-black w-[100vw] h-[100vh] text-white p-[4rem]">
+    <div className="App bg-black w-[100vw] min-h-[100vh] text-white p-[4rem]">
       <h1 className='text-5xl font-[500] text-center underline'>MY TO-DO LIST</h1>
-      <form className=' my-[7rem]'>
-      <input className='border border-white w-[25rem] h-[5rem] focus:outline-none text-black px-[1rem] mb-[4rem]' type="text" />
-        <div>
-          <input className='w-[1.5rem] h-[2rem]' type="checkbox" />
-          <label className='mx-[1rem] text-[1.5rem]'>hshdhdh</label>
+      <form onSubmit={handleSubmit} className='my-[7rem]'>
+        <div className='w-[40%]'>
+          <input className='border border-white w-[27rem] h-[5rem] focus:outline-none text-black px-[1rem]' type="text" placeholder='Add your lists' value={input} onChange={(e) => setInput(e.target.value)} />
+      
+          <div className='my-[2rem] w-[27rem] flex justify-center gap-[1rem]'>
+            <button className='p-[1rem] border border-white rounded-md font-[500]' type='submit'>Add List</button> 
+            <button onClick={() => setToDoList([])} className='p-[1rem] border border-white rounded-md font-[500]'>Clear List</button>
+          </div>
+        </div>
+
+        <div className='w-[30rem] min-h-[0vh] flex text-black bg-white rounded-md'>
+          <ul>
+            {toDoList.map((todo, index) => (
+              <li className='flex m-[1.5rem]' key={`${todo} - ${index}`}><input type="checkbox" className='mr-[1rem]' />{todo}</li>
+            ))}
+          </ul>
         </div>
       </form>
     </div>
