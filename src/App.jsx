@@ -4,6 +4,24 @@ import './App.css'
 function App() {
   const [input, setInput] = useState("")
   const [toDoList, setToDoList] = useState([])
+  const [completeTacksCount, setcompleteTacksCount] = useState(0)
+
+  // const handleComplete = (id) => {
+  //   let list = toDoList.map((task) => {
+  //     let item = {}
+  //     if (task.id === id){
+  //       if (!task.complete){
+  //         setcompleteTacksCount(completeTacksCount + 1)
+  //       } else {
+  //         setcompleteTacksCount(completeTacksCount - 1)
+  //       }
+  //       item = {...task, complete: !task.complete}
+  //     }
+  //     return item
+  //   })
+  //   setToDoList(list)
+  // }
+  // console.log(handleComplete())
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -22,12 +40,17 @@ function App() {
             <button className='p-[1rem] border border-white rounded-md font-[500]' type='submit'>Add List</button> 
             <button onClick={() => setToDoList([])} className='p-[1rem] border border-white rounded-md font-[500]'>Clear List</button>
           </div>
+          <div className='flex gap-[2rem]'>
+            <p>Pending tasks</p>
+            <p>Completed tasks</p>
+          </div>
         </div>
 
         <div className='w-[30rem] min-h-[0vh] flex text-black bg-white rounded-md'>
+          
           <ul>
             {toDoList.map((todo, index) => (
-              <li className='flex m-[1.5rem]' key={`${todo} - ${index}`}><input type="checkbox" className='mr-[1rem]' />{todo}</li>
+              <li className='flex m-[1.5rem]' key={`${todo} - ${index}`}><input type="checkbox" className='mr-[1rem]' />{todo.task}</li>
             ))}
           </ul>
         </div>
