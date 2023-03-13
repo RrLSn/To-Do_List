@@ -3,10 +3,17 @@
 }
 
 .App{
-    @apply w-screen h-screen
+    @apply w-screen min-h-screen
 }
 
 .holdtext{
-    @apply decoration-double line-through italic
+    @apply decoration-double line-through italic decoration-blue-600
 }
 
+.completed{
+    @apply bg-[blue] italic
+}
+
+.ntComplete{
+    @apply bg-[black]
+}
