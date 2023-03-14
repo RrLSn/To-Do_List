@@ -5,7 +5,7 @@ function App() {
   const [input, setInput] = useState("")
   const [toDoList, setToDoList] = useState([])
   const [CompletedTask, setCompletedTask] = useState(false)
-  const [checkBox, setCheckBox] = useState(false)
+  const [checkBox, setCheckBox] = useState(0)
 
   const handleChange = (e) => {
     setInput(e.target.value)
@@ -49,11 +49,12 @@ function App() {
   const handlecheckbox = (e) => {
     // e.preventDefault();
     if(e.target.checked){
-      console.log('checked')
-    }else{
-      console.log('not checked')
+      setCheckBox(checkBox + 1)
     }
-    setCheckBox(checkBoxs => !checkBoxs)
+    else{
+      setCheckBox(checkBox - 1)
+    }
+    // setCheckBox(checkBoxs => !checkBoxs)
   }
 
   
@@ -69,21 +70,21 @@ function App() {
           </div>
       
           <div className='flex gap-[2rem]'>
-            <p>Pending tasks: {toDoList.length}</p>
-            <p>Completed tasks:</p>
+            <p>Pending tasks: {toDoList.length - checkBox}</p>
+            <p>Completed tasks: {checkBox}</p>
           </div>
         </div>
 
         <div className='w-[30rem] min-h-[0vh] text-black bg-white rounded-md'>
           {toDoList.map((todo,index) => (
           <ul key={index} className={`flex justify-between p-[1rem]`}>
-            <input type="checkbox" checked={todo.isCompleted} onChange={(e) => handlecheckbox(e)} value={checkBox} />  
+            <input type="checkbox" checked={todo.isCompleted} onChange={(e) => handlecheckbox(e)} value={checkBox} className={`${todo.isCompleted? "completed" : "ntComplete"}`} onClick={(e) => {
+                handleComplete(e, todo.id) 
+                setCompletedTask(!CompletedTask)}} />  
             <li className={todo.isCompleted ? 'holdtext' : "text"}>{todo.value}</li>
 
             <div className='flex gap-[1rem]'>
-              <button className={`text-white rounded-md p-[0.3rem] ${todo.isCompleted? "completed" : "ntComplete"}`} onClick={(e) => {
-                handleComplete(e, todo.id) 
-                setCompletedTask(!CompletedTask)}}>Completed
+              <button className={`text-white rounded-md p-[0.3rem] `} >Completed
               </button>
 
              <button className='bg-[red] text-white rounded-md p-[0.3rem] delete' onClick={(e) => deleteTask(e,todo.id)}>Delete</button>
