@@ -9,11 +9,3 @@
 .holdtext{
     @apply decoration-double line-through italic decoration-blue-600
 }
-
-.completed{
-    @apply bg-[blue] italic
-}
-
-.ntComplete{
-    @apply bg-[black]
-}

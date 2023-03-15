@@ -39,6 +39,8 @@ function App() {
     }
 
     setToDoList(newTodoList)
+    // console.log(newTodoList[elements])
+    // console.log(newTodoList)
   }
 
   const deleteTask = (e, id) => {
@@ -47,15 +49,16 @@ function App() {
   }
 
   const handlecheckbox = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     if(e.target.checked){
       setCheckBox(checkBox + 1)
     }
     else{
       setCheckBox(checkBox - 1)
     }
-    // setCheckBox(checkBoxs => !checkBoxs)
   }
+
+  // console.log(toDoList)
 
   
 
@@ -78,17 +81,22 @@ function App() {
         <div className='w-[30rem] min-h-[0vh] text-black bg-white rounded-md'>
           {toDoList.map((todo,index) => (
           <ul key={index} className={`flex justify-between p-[1rem]`}>
-            <input type="checkbox" checked={todo.isCompleted} onChange={(e) => handlecheckbox(e)} value={checkBox} className={`${todo.isCompleted? "completed" : "ntComplete"}`} onClick={(e) => {
-                handleComplete(e, todo.id) 
-                setCompletedTask(!CompletedTask)}} />  
+
+            <input type="checkbox" 
+            checked={todo.isCompleted}
+            onChange={(e) => { handlecheckbox(e),
+              handleComplete(e, todo.id) 
+              setCompletedTask(!CompletedTask)}
+            } 
+            value={checkBox} 
+            // onClick={(e) => {
+            //     handleComplete(e, todo.id) 
+            //     setCompletedTask(!CompletedTask)}} 
+                />  
             <li className={todo.isCompleted ? 'holdtext' : "text"}>{todo.value}</li>
 
-            <div className='flex gap-[1rem]'>
-              <button className={`text-white rounded-md p-[0.3rem] `} >Completed
-              </button>
+            <button className='bg-[red] text-white rounded-md p-[0.3rem] delete' onClick={(e) => deleteTask(e,todo.id)}>Delete</button>
 
-             <button className='bg-[red] text-white rounded-md p-[0.3rem] delete' onClick={(e) => deleteTask(e,todo.id)}>Delete</button>
-            </div>
           </ul>
             ))}
         </div>
