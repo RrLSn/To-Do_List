@@ -9,3 +9,7 @@
 .holdtext{
     @apply decoration-double line-through italic decoration-blue-600
 }
+
+span{
+    @apply cursor-pointer
+}
