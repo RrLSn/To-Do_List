@@ -3,14 +3,7 @@ import './App.css'
 
 function App() {
   const [todos, setTodos] = useState("")
-  const [toDoList, setToDoList] = useState([
-    { todo: "Eat", 
-      isCompleted: false, 
-      id: Math.floor(Math.random()*1000)
-    }, { todo: "going", 
-    isCompleted: false, 
-    id: Math.floor(Math.random()*1000)
-  }])
+  const [toDoList, setToDoList] = useState([])
   const [checkBox, setCheckBox] = useState(0)
 
   const handleChange = (e) => {
