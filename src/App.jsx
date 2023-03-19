@@ -5,9 +5,12 @@ function App() {
   const [todos, setTodos] = useState("")
   const [toDoList, setToDoList] = useState([
     { todo: "Eat", 
-      isCompleted: true, 
+      isCompleted: false, 
       id: Math.floor(Math.random()*1000)
-    }])
+    }, { todo: "going", 
+    isCompleted: false, 
+    id: Math.floor(Math.random()*1000)
+  }])
   const [checkBox, setCheckBox] = useState(0)
 
   const handleChange = (e) => {
@@ -22,13 +25,15 @@ function App() {
   }
   
   const handleComplete = (element) => {
-    const newTodoList = [...toDoList]
-    newTodoList[element] = {
-      todo: newTodoList[element].todo,
-      isCompleted: !newTodos[element].isCompleted,
-      id: newTodoList[element].id
-    }
-    console.log(newTodoList)
+    const newTodoList = toDoList.map((todo, index) => {
+      if (element === index){
+        return{
+          ...todo,
+          isCompleted: !todo.isCompleted
+        }
+      }
+      return todo
+    })
     setToDoList(newTodoList)
   }
 
@@ -38,9 +43,9 @@ function App() {
   }
 
 
-  // const handlecheckbox = () => {
-  //   toDoList.isCompleted? setCheckBox(checkBox + 1) : setCheckBox(checkBox - 1)
-  // }
+  const handlecheckbox = () => {
+    toDoList.isCompleted? setCheckBox(checkBox + 1) : setCheckBox(checkBox - 1)
+  }
 
   
 
@@ -64,12 +69,13 @@ function App() {
           {toDoList.map((tl,index) => (
           <div key={index} className={`flex justify-between p-[1rem]`}>
 
-            <input type="checkbox" 
-            checked={tl.isCompleted}
-            value={checkBox} 
-            onChange={handleComplete}
-            />  
-            <span className={tl.isCompleted ? 'holdtext' : "text"}>{tl.todo}</span>
+            <div className='w-[10rem] flex gap-[5rem]' onClick={()=> handleComplete(index)}>
+              <input type="checkbox" 
+              checked={tl.isCompleted}
+              value={checkBox} 
+              />  
+              < span className={tl.isCompleted ? 'holdtext' : "text"}>{tl.todo}</span>
+            </div>
 
             <button className='bg-[red] text-white rounded-md p-[0.3rem] delete' onClick={(e) => deleteTask(e,tl.id)}>Delete</button>
 
