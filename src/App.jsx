@@ -5,14 +5,18 @@ function App() {
   const [todos, setTodos] = useState("")
   const [toDoList, setToDoList] = useState([])
   const [checkBox, setCheckBox] = useState(0)
+  const [pending, setPending] = useState(0)
 
   const handleChange = (e) => {
     setTodos(e.target.value)
   }
 
+  console.log(toDoList)
+
   const addTask = (e) => {
   e.preventDefault();
   const newTodoList = toDoList.concat({ todo: todos, isCompleted: false, id: Math.floor(Math.random()*1000)})
+  setPending(pending + 1)
   setToDoList(newTodoList)
   setTodos('')
   }
@@ -37,11 +41,10 @@ function App() {
 
 
   const handlecheckbox = () => {
-    toDoList.isCompleted? setCheckBox(checkBox + 1) : setCheckBox(checkBox - 1)
+    toDoList.isCompleted? setCheckBox(checkBox - 1) : setCheckBox(checkBox + 1)
   }
 
   
-
   return (
     <div className="App bg-black  text-white p-[4rem]">
       <h1 className='text-5xl font-[500] text-center underline'>MY TO-DO LIST</h1>
@@ -53,7 +56,7 @@ function App() {
           </form>
       
           <div className='flex gap-[2rem]'>
-            <p>Pending tasks: {toDoList.length - checkBox}</p>
+            <p>Pending tasks: {pending - checkBox}</p>
             <p>Completed tasks: {checkBox}</p>
           </div>
         </div>
@@ -65,7 +68,8 @@ function App() {
             <div className='w-[10rem] flex gap-[5rem]' onClick={()=> handleComplete(index)}>
               <input type="checkbox" 
               checked={tl.isCompleted}
-              value={checkBox} 
+              // value={checkBox} 
+              onClick={handlecheckbox}
               />  
               < span className={tl.isCompleted ? 'holdtext' : "text"}>{tl.todo}</span>
             </div>
